@@ -61,7 +61,7 @@ export function ContactSection() {
   return (
     <section
       id="iletisim"
-      className="relative overflow-hidden bg-slate-900 py-20 text-white sm:py-28"
+      className="relative scroll-mt-[7rem] overflow-hidden bg-slate-900 py-20 text-white sm:scroll-mt-[7.75rem] sm:py-28"
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(251,191,36,0.08)_0%,transparent_45%,rgba(15,23,42,0.9)_100%)]" />
       <motion.div
@@ -144,7 +144,8 @@ export function ContactSection() {
       </div>
 
       <motion.div
-        className="relative mx-auto mt-16 max-w-6xl px-4 sm:mt-20 sm:px-6 lg:px-10"
+        id="konum"
+        className="relative mx-auto mt-16 max-w-6xl scroll-mt-[7rem] px-4 sm:mt-20 sm:scroll-mt-[7.75rem] sm:px-6 lg:px-10"
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}

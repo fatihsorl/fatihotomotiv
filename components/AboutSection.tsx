@@ -30,7 +30,7 @@ export function AboutSection() {
   return (
     <section
       id="hakkimizda"
-      className="relative overflow-hidden bg-slate-50 py-20 sm:py-28"
+      className="relative scroll-mt-[7rem] overflow-hidden bg-slate-50 py-20 sm:scroll-mt-[7.75rem] sm:py-28"
     >
       <div className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-amber-200/40 blur-3xl" />
       <div className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-slate-200/80 blur-3xl" />

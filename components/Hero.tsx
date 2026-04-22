@@ -55,7 +55,7 @@ export function Hero() {
       </div>
 
       {/* İçerik */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-4 pb-16 pt-40 sm:px-6 sm:pb-20 sm:pt-44 lg:px-10 lg:pt-48">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-4 pb-16 pt-36 sm:px-6 sm:pb-20 sm:pt-40 lg:px-10 lg:pt-44">
         <motion.div
           initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}

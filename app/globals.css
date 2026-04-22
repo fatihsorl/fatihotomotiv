@@ -12,6 +12,17 @@
   --font-mono: ui-monospace, monospace;
 }
 
+html {
+  /* Sabit header altında anchor hedefleri kesilmesin (hero’da logo büyükken) */
+  scroll-padding-top: 7rem;
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: 7.75rem;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
