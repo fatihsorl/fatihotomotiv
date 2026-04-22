@@ -1,15 +1,23 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { HERO_VIDEO_FALLBACK, HERO_VIDEO_POSTER } from "@/lib/hero-video";
 
-/** Yerel videoyu `public/videos/hero.mp4` olarak ekleyin; yarın çektiğiniz görüntü buraya konabilir. */
-const LOCAL_VIDEO = "/videos/hero.mp4";
+const LOCAL_HERO = "/videos/hero.mp4";
 
 export function Hero() {
+  const [videoSrc, setVideoSrc] = useState<string>(LOCAL_HERO);
   const [videoOk, setVideoOk] = useState(true);
+  const triedFallback = useRef(false);
 
+  /** Önce yerel `hero.mp4`; yüklenmezse uzaktaki otomotiv stok görüntü */
   const onVideoError = useCallback(() => {
+    if (!triedFallback.current) {
+      triedFallback.current = true;
+      setVideoSrc(HERO_VIDEO_FALLBACK);
+      return;
+    }
     setVideoOk(false);
   }, []);
 
@@ -22,16 +30,17 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         {videoOk ? (
           <video
-            className="h-full w-full object-cover"
+            key={videoSrc}
+            className="h-full w-full scale-105 object-cover"
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            poster="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1920&q=80"
+            poster={HERO_VIDEO_POSTER}
             onError={onVideoError}
           >
-            <source src={LOCAL_VIDEO} type="video/mp4" />
+            <source src={videoSrc} type="video/mp4" />
           </video>
         ) : (
           <div className="hero-mesh absolute inset-0" aria-hidden />
