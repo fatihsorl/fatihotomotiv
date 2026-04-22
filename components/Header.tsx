@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
+const LOGO_SRC = "/otomotiv-logo.png";
+
 const navItems = [
   { href: "#anasayfa", label: "Anasayfa" },
   { href: "#hakkimizda", label: "Hakkımızda" },
@@ -37,7 +39,9 @@ export function Header() {
         className="fixed inset-x-0 top-0 z-50 px-4 sm:px-6 lg:px-10"
         initial={false}
         animate={{
-          backgroundColor: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0)",
+          backgroundColor: scrolled
+            ? "rgba(255,255,255,0.97)"
+            : "rgba(255,255,255,0)",
           boxShadow: scrolled
             ? "0 8px 32px -8px rgba(15, 23, 42, 0.12)"
             : "0 0 0 rgba(0,0,0,0)",
@@ -50,31 +54,28 @@ export function Header() {
             scrolled ? "py-3" : "py-5 sm:py-6"
           }`}
         >
-          <Link href="#anasayfa" className="group flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 rounded-md">
-            <motion.div
-              className="relative"
-              animate={{ scale: scrolled ? 0.88 : 1 }}
+          <Link
+            href="#anasayfa"
+            className="inline-flex shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 rounded-sm"
+          >
+            <motion.img
+              src={LOGO_SRC}
+              alt="Fatih Otomotiv"
+              width={640}
+              height={200}
+              draggable={false}
+              className={`block h-[5rem] w-auto sm:h-[5.75rem] lg:h-32 ${
+                scrolled ? "" : "drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]"
+              }`}
+              animate={{ scale: scrolled ? 0.92 : 1 }}
               transition={{ type: "spring", stiffness: 380, damping: 28 }}
-            >
-              <span className="font-[family-name:var(--font-heading)] text-xl font-bold tracking-tight sm:text-2xl">
-                <span className={scrolled ? "text-slate-900" : "text-white drop-shadow-md"}>
-                  FATİH
-                </span>
-                <span
-                  className={
-                    scrolled
-                      ? "text-amber-600"
-                      : "text-amber-400 drop-shadow-md"
-                  }
-                >
-                  {" "}
-                  OTOMOTİV
-                </span>
-              </span>
-            </motion.div>
+            />
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Ana menü">
+          <nav
+            className="hidden items-center gap-1 md:flex"
+            aria-label="Ana menü"
+          >
             {navItems.map((item, i) => (
               <motion.div
                 key={item.href}
@@ -160,7 +161,7 @@ export function Header() {
               onClick={() => setMobileOpen(false)}
             />
             <motion.nav
-              className="absolute right-4 top-[calc(5.5rem+env(safe-area-inset-top))] left-4 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/95 p-2 shadow-2xl shadow-black/40 ring-1 ring-white/10"
+              className="absolute right-4 top-[calc(9rem+env(safe-area-inset-top))] left-4 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/95 p-2 shadow-2xl shadow-black/40 ring-1 ring-white/10"
               initial={{ opacity: 0, y: -16, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, scale: 0.98 }}

@@ -2,30 +2,54 @@
 
 import { motion } from "framer-motion";
 import {
-  PHONE_DISPLAY,
+  PHONE_MOBILE_DISPLAY,
+  PHONE_MOBILE_EXTRA_DISPLAY,
+  PHONE_OFFICE_DISPLAY,
   SHOP_ADDRESS_DISPLAY,
-  TEL_HREF,
+  TEL_HREF_MOBILE,
+  TEL_HREF_MOBILE_EXTRA,
+  TEL_HREF_OFFICE,
   googleMapsDirectionsHref,
   googleMapsEmbedSrc,
 } from "@/lib/contact";
 
-type ContactRow = {
-  label: string;
-  value: string;
-  hint?: string;
-  tel?: string;
-};
+type PhoneLine = { value: string; tel: string };
+
+type ContactRow =
+  | {
+      label: string;
+      value: string;
+      hint?: string;
+      tel?: string;
+      multiline?: boolean;
+      phones?: undefined;
+    }
+  | {
+      label: string;
+      phones: PhoneLine[];
+      value?: undefined;
+      hint?: undefined;
+      tel?: undefined;
+      multiline?: undefined;
+    };
 
 const rows: ContactRow[] = [
   {
     label: "Adres",
     value: SHOP_ADDRESS_DISPLAY,
-    hint: "Kapı ve blok numaranızı buraya ekleyin",
+    multiline: true,
   },
   {
-    label: "Telefon",
-    value: PHONE_DISPLAY,
-    tel: TEL_HREF,
+    label: "Cep telefonu",
+    phones: [
+      { value: PHONE_MOBILE_DISPLAY, tel: TEL_HREF_MOBILE },
+      { value: PHONE_MOBILE_EXTRA_DISPLAY, tel: TEL_HREF_MOBILE_EXTRA },
+    ],
+  },
+  {
+    label: "Kurumsal telefon",
+    value: PHONE_OFFICE_DISPLAY,
+    tel: TEL_HREF_OFFICE,
   },
   {
     label: "Çalışma saatleri",
@@ -61,8 +85,8 @@ export function ContactSection() {
             Mağazamızı ziyaret edin veya arayın
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-slate-300">
-            Sorularınız ve siparişleriniz için telefon veya WhatsApp üzerinden
-            bize ulaşabilirsiniz.
+            Sorularınız ve siparişleriniz için cep telefonlarımızdan, kurumsal
+            hattımızdan veya WhatsApp üzerinden bize ulaşabilirsiniz.
           </p>
         </motion.div>
 
@@ -85,13 +109,29 @@ export function ContactSection() {
               <p className="text-xs font-semibold uppercase tracking-wider text-amber-400/90">
                 {item.label}
               </p>
-              {item.tel ? (
+              {"phones" in item && item.phones ? (
+                <div className="mt-2 flex flex-col gap-2">
+                  {item.phones.map((p) => (
+                    <a
+                      key={p.tel}
+                      href={p.tel}
+                      className="text-lg font-medium text-white underline decoration-amber-400/60 underline-offset-4 transition-colors hover:text-amber-200 hover:decoration-amber-200"
+                    >
+                      {p.value}
+                    </a>
+                  ))}
+                </div>
+              ) : item.tel ? (
                 <a
                   href={item.tel}
                   className="mt-2 block text-lg font-medium text-white underline decoration-amber-400/60 underline-offset-4 transition-colors hover:text-amber-200 hover:decoration-amber-200"
                 >
                   {item.value}
                 </a>
+              ) : item.multiline ? (
+                <p className="mt-2 whitespace-pre-line text-lg font-medium leading-relaxed text-white">
+                  {item.value}
+                </p>
               ) : (
                 <p className="mt-2 text-lg font-medium text-white">{item.value}</p>
               )}
@@ -118,8 +158,8 @@ export function ContactSection() {
             <h3 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-bold text-white sm:text-3xl">
               Bizi haritada bulun
             </h3>
-            <p className="mt-2 max-w-xl text-slate-400">
-              Kartal Oto Sanayi yakınında misafirlerimizi bekliyoruz.
+            <p className="mt-2 max-w-xl whitespace-pre-line text-slate-400">
+              {SHOP_ADDRESS_DISPLAY}
             </p>
           </div>
           <motion.a

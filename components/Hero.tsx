@@ -26,12 +26,19 @@ export function Hero() {
       id="anasayfa"
       className="relative flex min-h-[100dvh] w-full flex-col justify-end overflow-hidden"
     >
-      {/* Arka plan: video veya animasyonlu mesh */}
+      {/* Arka plan: önce araba fotoğrafı (her zaman); üzerinde video */}
       <div className="absolute inset-0 z-0">
+        <img
+          src={HERO_VIDEO_POSTER}
+          alt=""
+          className="absolute inset-0 h-full w-full scale-105 object-cover"
+          fetchPriority="high"
+          decoding="async"
+        />
         {videoOk ? (
           <video
             key={videoSrc}
-            className="h-full w-full scale-105 object-cover"
+            className="absolute inset-0 h-full w-full scale-105 object-cover"
             autoPlay
             muted
             loop
@@ -42,15 +49,13 @@ export function Hero() {
           >
             <source src={videoSrc} type="video/mp4" />
           </video>
-        ) : (
-          <div className="hero-mesh absolute inset-0" aria-hidden />
-        )}
+        ) : null}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/40" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(251,191,36,0.12),transparent_55%)]" />
       </div>
 
       {/* İçerik */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-10">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-4 pb-16 pt-40 sm:px-6 sm:pb-20 sm:pt-44 lg:px-10 lg:pt-48">
         <motion.div
           initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
